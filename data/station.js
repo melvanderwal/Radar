@@ -1,4 +1,4 @@
-{
+var stationGeoJson = {
     "type": "FeatureCollection",
     "features": [
       {
