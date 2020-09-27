@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base target="_top">
+    <title>Rain Radar</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta charset="utf-8" />
+
+    <link rel="shortcut icon" href="res/favicon.ico" type="image/x-icon" />
+    
+    <link href="css/index.css" rel="stylesheet" />
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/0ce0c19af1.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!-- Primary div holding the Mapbox map -->
+    <div id="map"></div>
+
+    <!-- Transparent fading border around edge, turned on by url parameter: fade=true -->
+    <div id="borderFade"><span id="radarTitle">Radar</span></div>
+
+    <div id="titleBar"><span id="pageTitle">Brisbane Rain Radar</span> </div>
+
+    <!-- Startup Spinner -->
+    <div id="kickstart">
+        <span class="fa-stack fa-2x">
+            <i class="kickstartIcon fas fa-satellite-dish fa-stack-1x"></i>
+            <i class="kickstartSurround fas fa-circle-notch fa-stack-2x"></i>
+        </span>
+    </div>
+
+    <!-- Marker Control -->
+    <template id="markerControl">
+        <div id="addMarkerBtn" class="mapboxBtn"><i class="fas fa-map-marker-alt"></i></div>
+    </template>
+
+    <!-- Marker Bin where markers are dropped to delete them -->
+    <div id="markerBin"><i class="fas fa-dumpster"></i></div>
+
+    <!-- Marker -->
+    <template id="markerTemplate">
+        <div class='pin'></div>
+        <div class='pulse'></div>
+    </template>
+
+
+    <!-- Lock and Radar Station Control-->
+    <template id="lockControl">
+        <div style="width:200px;">
+            <span id="radarLock" class="lock" style="position:absolute;top:20px;left:10px;"></span>
+            <span id="weatherStation"
+                style="color:#c8ffc8;font-size:10px;font-family:Verdana,sans-serif;position:absolute;top:5px;left:40px;display:inline;"></span>
+            <span id="radarTime"
+                style="color:white;font-size:10px;font-family:Verdana,sans-serif;position:absolute;top:20px;left:40px;display:inline;"></span>
+        </div>
+    </template>
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js"></script>
+    <script src="data/station.js"></script>
+    <script src="js/cookie-manager.js"></script>
+    <script src="js/mapbox-controls.js"></script>
+    <script src="js/mapbox.js"></script>
+    <script src="js/marker.js"></script>
+    <script src="js/station.js"></script>
+    <script src="js/pulsing-dot.js"></script>
+</body>
+
+</html>
