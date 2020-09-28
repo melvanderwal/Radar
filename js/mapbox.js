@@ -153,7 +153,8 @@ function setActiveStation(feature) {
   // Otherwise, use the station closest to the center of the screen.
   let nearestStation;
   let nearestDistance = 100000000000;
-  if (feature && feature.properties)
+  let hasFeature = (feature && feature.properties);
+  if (hasFeature)
     nearestStation = feature;
   else if (map.getZoom() <= 5)
     nearestStation = stationGeoJson.features[0];
@@ -176,7 +177,7 @@ function setActiveStation(feature) {
 
   // Update the radar images, and if a station feature was provided to this function, lock to that station
   setActiveIDR();
-  if (feature && feature.properties) controls.lock.lockRadar();
+  if (hasFeature) controls.lock.lockRadar();
 }
 
 function setActiveIDR() {
@@ -207,7 +208,7 @@ function setActiveIDR() {
 
   // If the new IDR is different than the current one, update the current IDR
   if (activeIdr.name != newIdrName) {
-    fetch(idrUrl)
+    fetch(idrUrl, {cache: "no-store"})
       .then(response => response.json())
       .then(idrJson => {
         currentImageIdx = 0;
