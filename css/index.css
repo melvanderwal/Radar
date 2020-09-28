@@ -1,0 +1,525 @@
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #2e2e2e;
+    overflow: hidden;
+  }
+
+  #map {
+    position: absolute;
+    margin-top: 45px;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+  }
+
+  #titleBar {
+    display: block;
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    height: 70px;
+    width: 100%;
+    color: rgb(143, 143, 143);
+    font-family: Roboto, Charcoal, sans-serif;
+    font-size: 24px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.7) 70%, rgba(0, 0, 0, 0) 100%);
+  }
+  
+  #pageTitle {
+    position: absolute;
+    left: 20px;
+    top: 10px;
+  }
+
+  #borderFade {
+    display: block;
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    background: linear-gradient(to bottom, rgba(46, 46, 46, 1) 0%, rgba(46, 46, 46, 0) 10%), linear-gradient(to top, rgba(46, 46, 46, 1) 0%, rgba(46, 46, 46, 0) 10%), linear-gradient(to right, rgba(46, 46, 46, 1) 0%, rgba(46, 46, 46, 0) 10%), linear-gradient(to left, rgba(46, 46, 46, 1) 0%, rgba(46, 46, 46, 0) 10%);
+    padding: 0px;
+  }
+
+  #radarTitle {
+    display: none;
+    position: absolute;
+    left: -10px;
+    top: 50%;
+    transform: rotate(-90deg);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #999999;
+  }
+
+  /*  Marker buttons that mimic style of stock Mapbox buttons */
+
+  .mapboxBtn {
+    width: 29px;
+    height: 29px;
+    display: block;
+    padding: 0;
+    outline: none;
+    border: 0;
+    box-sizing: border-box;
+    background-color: transparent;
+    cursor: pointer;
+    background: rgb(230, 230, 230);
+    line-height: 30px;
+    text-align: center;
+    color: rgb(51, 51, 51);
+    font-size: 20px;
+    border-radius: 15%;
+  }
+
+  .mapboxBtn:hover {
+    background: rgb(200, 200, 200);
+  }
+
+  .deleting {
+    background: rgb(100, 100, 100);
+  }
+
+  /*  Marker bin  */
+
+  #markerBin {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    right: 10px;
+    top: 180px;
+    width: 50px;
+    height: 70px;
+    font-size: 30px;
+    color: rgb(80, 80, 80);
+    background-color: rgba(0, 0, 0, 0.3);
+    border-color: #c72e7d;
+    border-style: dotted;
+    border-width: 2px;
+    border-radius: 50%;
+  }
+
+  #markerBin:hover {
+    cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABY0lEQVRIS+3Vv0vWURTH8dchw+ovMDJoaak2cShsSWyQ1pZmB+lxDQ3ahH78B0o01CS6RbjkpDQFbYnQ/xCJg4TKiRtf5evT86sH3Z673O/lnPt5n3vP954TznnEOevrCsjMZTzGUFMw+3gbES86BdkRkJlP8QaXUASPR9l3GbtoRMRKO0g3wCdMYyUintRFMnMTE61sdb8TQGbO4l7NeBEPcQWf8aspylHcx09s4Kiyl3k9ItbKug4oTpNnlPR3ETHTDHiAO3iOkT5BP7CInYj4egpQFplZIB9wrU/AdkTcbpmDNoAdTFU5uI6F6nTP8AWv8B5XK9H/BvzdkJnfUQAN3MQ8tvCy6cQDwOCK/n0Hg7/odMNpUSoOqz5Qav+F6vu4F/zGQdUXiq2Mrg9tHKu40Wct+hYRY21rUVWPPuJRvZT3CCt9YCki5roBbuE17mK4R/FyXeuYi4i9joAeBXt2+wN5M84ZRGOb0wAAAABJRU5ErkJggg==), auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-style: solid;
+  }
+
+  #markerBinIcon {
+    pointer-events: none;
+  }
+
+  /* Lock Switch */
+
+  .lock {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    --locked-color: #64ff64;
+    --unlocked-color: #c8ffc8;
+    width: 20px;
+    height: 16px;
+    border: 3px solid var(--locked-color);
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+    -webkit-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+  }
+
+  .lock:after {
+    content: "";
+    display: block;
+    background: var(--locked-color);
+    width: 3px;
+    height: 7px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -3.5px 0 0 -2px;
+    -webkit-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+  }
+
+  .lock:before {
+    content: "";
+    display: block;
+    width: 10px;
+    height: 10px;
+    bottom: 100%;
+    position: absolute;
+    left: 50%;
+    margin-left: -8px;
+    border: 3px solid var(--locked-color);
+    border-top-right-radius: 50%;
+    border-top-left-radius: 50%;
+    border-bottom: 0;
+    -webkit-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+  }
+
+  .lock:hover:before {
+    height: 12px;
+  }
+
+  .unlocked {
+    transform: rotate(10deg);
+  }
+
+  .unlocked:before {
+    bottom: 130%;
+    left: 31%;
+    margin-left: -11.5px;
+    transform: rotate(-45deg);
+  }
+
+  .unlocked, .unlocked:before {
+    border-color: var(--unlocked-color);
+  }
+
+  .unlocked:after {
+    background: var(--unlocked-color);
+  }
+
+  .unlocked:hover {
+    transform: rotate(3deg);
+  }
+
+  .unlocked:hover:before {
+    height: 10px;
+    left: 40%;
+    bottom: 124%;
+    transform: rotate(-30deg);
+  }
+
+  /* PWS Marker */
+
+  .pin {
+    width: 20px;
+    height: 20px;
+    border-radius: 50% 50% 50% 15%;
+    background: #c72e7d;
+    position: absolute;
+    transform: rotate(-45deg);
+    left: 50%;
+    top: 50%;
+    margin: -15px 0 0 -15px;
+    animation-name: bounce;
+    animation-fill-mode: both;
+    animation-duration: 1s;
+  }
+
+  .pin:after {
+    content: '';
+    animation: markerCenter 1.75s linear;
+    animation-iteration-count: infinite;
+    width: 10px;
+    height: 10px;
+    margin: 5px 0 0 5px;
+    background: #2f2f2f;
+    position: absolute;
+    border-radius: 50%;
+  }
+
+  .pulse {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    height: 14px;
+    width: 14px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: 11px 0px 0px -12px;
+    transform: rotateX(55deg);
+    z-index: -2;
+  }
+
+  .pulse:after {
+    content: "";
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    margin: -13px 0 0 -13px;
+    animation: rings 1s ease-out;
+    animation-iteration-count: infinite;
+    opacity: 0;
+    box-shadow: 0 0 1px 2px #c72e7d;
+    animation-delay: 1.1s;
+  }
+
+  @-moz-keyframes rings {
+    0% {
+      transform: scale(0.1, 0.1) rotate(0deg);
+      opacity: 0;
+      border-radius: 10%;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1.2, 1.2) rotate(180deg);
+      border-radius: 50%;
+      opacity: 0;
+    }
+  }
+
+  @-webkit-keyframes rings {
+    0% {
+      transform: scale(0.1, 0.1) rotate(0deg);
+      opacity: 0;
+      border-radius: 10%;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1.2, 1.2) rotate(180deg);
+      border-radius: 50%;
+      opacity: 0;
+    }
+  }
+
+  @-o-keyframes rings {
+    0% {
+      transform: scale(0.1, 0.1) rotate(0deg);
+      opacity: 0;
+      border-radius: 10%;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1.2, 1.2) rotate(180deg);
+      border-radius: 50%;
+      opacity: 0;
+    }
+  }
+
+  @keyframes rings {
+    0% {
+      transform: scale(0.1, 0.1) rotate(0deg);
+      opacity: 0;
+      border-radius: 10%;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1.2, 1.2) rotate(180deg);
+      border-radius: 50%;
+      opacity: 0;
+    }
+  }
+
+  @-moz-keyframes markerCenter {
+    0% {
+      transform: rotateZ(0deg) rotateY(0deg) rotateX(20deg);
+      opacity: 1;
+    }
+    25% {
+      opacity: 0.1;
+    }
+    50% {
+      opacity: 1;
+    }
+    75% {
+      opacity: 0.1;
+    }
+    100% {
+      transform: rotateZ(360deg) rotateY(360deg) rotateX(45deg);
+      opacity: 1;
+    }
+  }
+
+  @-webkit-keyframes markerCenter {
+    0% {
+      transform: rotateZ(0deg) rotateY(0deg) rotateX(20deg);
+      opacity: 1;
+    }
+    25% {
+      opacity: 0.1;
+    }
+    50% {
+      opacity: 1;
+    }
+    75% {
+      opacity: 0.1;
+    }
+    100% {
+      transform: rotateZ(360deg) rotateY(360deg) rotateX(45deg);
+      opacity: 1;
+    }
+  }
+
+  @-o-keyframes markerCenter {
+    0% {
+      transform: rotateZ(0deg) rotateY(0deg) rotateX(20deg);
+      opacity: 1;
+    }
+    25% {
+      opacity: 0.1;
+    }
+    50% {
+      opacity: 1;
+    }
+    75% {
+      opacity: 0.1;
+    }
+    100% {
+      transform: rotateZ(360deg) rotateY(360deg) rotateX(45deg);
+      opacity: 1;
+    }
+  }
+
+  @keyframes markerCenter {
+    0% {
+      transform: rotateZ(0deg) rotateY(0deg) rotateX(20deg);
+      opacity: 1;
+    }
+    25% {
+      opacity: 0.1;
+    }
+    50% {
+      opacity: 1;
+    }
+    75% {
+      opacity: 0.1;
+    }
+    100% {
+      transform: rotateZ(360deg) rotateY(360deg) rotateX(45deg);
+      opacity: 1;
+    }
+  }
+
+  @-moz-keyframes bounce {
+    0% {
+      opacity: 0;
+      transform: translateY(-2000px) rotate(-45deg);
+    }
+    60% {
+      opacity: 1;
+      transform: translateY(30px) rotate(-45deg);
+    }
+    80% {
+      transform: translateY(-10px) rotate(-45deg);
+    }
+    100% {
+      transform: translateY(0) rotate(-45deg);
+    }
+  }
+
+  @-webkit-keyframes bounce {
+    0% {
+      opacity: 0;
+      transform: translateY(-2000px) rotate(-45deg);
+    }
+    60% {
+      opacity: 1;
+      transform: translateY(30px) rotate(-45deg);
+    }
+    80% {
+      transform: translateY(-10px) rotate(-45deg);
+    }
+    100% {
+      transform: translateY(0) rotate(-45deg);
+    }
+  }
+
+  @-o-keyframes bounce {
+    0% {
+      opacity: 0;
+      transform: translateY(-2000px) rotate(-45deg);
+    }
+    60% {
+      opacity: 1;
+      transform: translateY(30px) rotate(-45deg);
+    }
+    80% {
+      transform: translateY(-10px) rotate(-45deg);
+    }
+    100% {
+      transform: translateY(0) rotate(-45deg);
+    }
+  }
+
+  @keyframes bounce {
+    0% {
+      opacity: 0;
+      transform: translateY(-2000px) rotate(-45deg);
+    }
+    60% {
+      opacity: 1;
+      transform: translateY(30px) rotate(-45deg);
+    }
+    80% {
+      transform: translateY(-10px) rotate(-45deg);
+    }
+    100% {
+      transform: translateY(0) rotate(-45deg);
+    }
+  }
+
+  /* Startup animation */
+
+  #kickstart {
+    display: block;
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    color: #32ff32;
+  }
+
+  .kickstartIcon {
+    animation: kickstartIcon 1.5s infinite;
+  }
+
+  .kickstartSurround {
+    animation: kickstartSurround 1.5s infinite;
+  }
+
+  @keyframes kickstartIcon {
+    0% {
+      transform: rotate(0deg);
+      opacity: 0.5;
+    }
+    40% {
+      opacity: 1;
+    }
+    70% {
+      transform: rotate(360deg);
+      opacity: 0.2;
+    }
+    100% {
+      transform: rotate(360deg);
+      opacity: 0.1;
+    }
+  }
+
+  @keyframes kickstartSurround {
+    0% {
+      transform: rotate(-30deg);
+      opacity: 1;
+    }
+    50% {
+      transform: rotate(150deg);
+      opacity: 1;
+    }
+    80% {
+      transform: rotate(-30deg);
+      opacity: 0.1;
+    }
+    100% {
+      transform: rotate(-30deg);
+      opacity: 1;
+    }
+  }
