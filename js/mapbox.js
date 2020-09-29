@@ -1,6 +1,6 @@
 mapboxgl.accessToken = "pk.eyJ1IjoibWVsdmFuZGVyd2FsIiwiYSI6ImNrZGt5NnZzbTA1MWQyc2tiMmdjOHdzamoifQ.ygz_QyPDlrstuvm-iI-W1Q";
 const urlParams = new URLSearchParams(window.location.search);
-const idrUrl = "https://melvanderwal.github.io/radar/data/idr.json";
+const idrUrl = "https://melvanderwal.github.io/Radar/data/idr.json";
 const pwsCoords = [152.828101, -27.5276];
 
 // Show/hide page elements based on URL parameters.
@@ -8,7 +8,6 @@ if (urlParams.get("title") == "false") document.getElementById("titleBar").style
 if (urlParams.get("label") == "true") document.getElementById("radarTitle").style.display = "block";
 let isPwsView = urlParams.get("pws") == "true";
 if (isPwsView) document.getElementById("kickstart").style.display = "none";
-
 
 // Create map object.  Use startup location from PWS, cookie,or use defaults.
 let startLocation = cookie.getMapLocation();
