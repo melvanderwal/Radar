@@ -4,7 +4,7 @@ const idrUrl = "https://melvanderwal.github.io/Radar/data/idr.json";
 const pwsCoords = [152.828101, -27.5276];
 
 // Show/hide page elements based on URL parameters.
-if (urlParams.get("title") == "false") document.getElementById("titleBar").style.display = "none";
+document.getElementById("titleBar").style.display = urlParams.get("title") == "false" ? "none" : "block";
 if (urlParams.get("label") == "true") document.getElementById("radarTitle").style.display = "block";
 let isPwsView = urlParams.get("pws") == "true";
 if (isPwsView) document.getElementById("kickstart").style.display = "none";
