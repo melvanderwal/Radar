@@ -14,7 +14,7 @@
   }
 
   #titleBar {
-    display: block;
+    display: none;
     position: absolute;
     pointer-events: none;
     top: 0;
