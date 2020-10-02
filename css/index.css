@@ -103,7 +103,7 @@
     border-radius: 50%;
   }
 
-  #markerBin:hover {
+  #markerBin:hover, #markerBin:active {
     cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABY0lEQVRIS+3Vv0vWURTH8dchw+ovMDJoaak2cShsSWyQ1pZmB+lxDQ3ahH78B0o01CS6RbjkpDQFbYnQ/xCJg4TKiRtf5evT86sH3Z673O/lnPt5n3vP954TznnEOevrCsjMZTzGUFMw+3gbES86BdkRkJlP8QaXUASPR9l3GbtoRMRKO0g3wCdMYyUintRFMnMTE61sdb8TQGbO4l7NeBEPcQWf8aspylHcx09s4Kiyl3k9ItbKug4oTpNnlPR3ETHTDHiAO3iOkT5BP7CInYj4egpQFplZIB9wrU/AdkTcbpmDNoAdTFU5uI6F6nTP8AWv8B5XK9H/BvzdkJnfUQAN3MQ8tvCy6cQDwOCK/n0Hg7/odMNpUSoOqz5Qav+F6vu4F/zGQdUXiq2Mrg9tHKu40Wct+hYRY21rUVWPPuJRvZT3CCt9YCki5roBbuE17mK4R/FyXeuYi4i9joAeBXt2+wN5M84ZRGOb0wAAAABJRU5ErkJggg==), auto;
     background-color: rgba(0, 0, 0, 0.5);
     border-style: solid;
