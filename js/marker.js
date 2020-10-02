@@ -37,7 +37,6 @@ function addMarker(canDrag, addToCookie, id, lat, lng) {
     newMarker.on('dragend', function (e) {
         let isDeletingMarker = false;
         document.elementsFromPoint(e.target._pos.x, e.target._pos.y+45).forEach(element => {
-            console.log(element.id);
             if (element.id == markerBin.id) {
                 isDeletingMarker = true;
                 cookie.removeMarker(id);
@@ -65,6 +64,10 @@ markerBin.onpointerup = function () {
         markerBin.style.display = "none";
     }
 }
+
+// The hover css doesn't fire on touchscreen devices
+markerBin.addEventListener('touchstart', function(){ markerBin.style.borderStyle = "solid"; }, false)
+markerBin.addEventListener('touchend', function(){ markerBin.style.borderStyle = "dotted"; }, false)
 
 // PWS Marker 
 if (isPwsView) addMarker(false, false, "Mel's PWS", pwsCoords[1], pwsCoords[0]);
