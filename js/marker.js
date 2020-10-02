@@ -31,19 +31,22 @@ function addMarker(canDrag, addToCookie, id, lat, lng) {
         markerBin.style.display = "flex";
     });
 
+    // Change the border when over the bin; hover css doesn't work on touchscreen devices
+    newMarker.on('drag', function (e) {
+        markerBin.style.borderStyle = markerOnBin(e) ? "solid" : "dotted";
+    });
+
     // If the user drags the marker to the bin, delete it.  If not, move it.
     // Need to adjust the position of the dragend by 45px, as the pixel coordinates are relative 
     // to the map div, not the document.
     newMarker.on('dragend', function (e) {
         let isDeletingMarker = false;
-        document.elementsFromPoint(e.target._pos.x, e.target._pos.y+45).forEach(element => {
-            if (element.id == markerBin.id) {
-                isDeletingMarker = true;
-                cookie.removeMarker(id);
-                this.remove();
-                activeMarker = null;
-            }
-        });
+        if (markerOnBin(e)) {
+            isDeletingMarker = true;
+            cookie.removeMarker(id);
+            this.remove();
+            activeMarker = null;
+        }
 
         if (!isDeletingMarker)
             cookie.addMarker(id, e.target._lngLat.lat, e.target._lngLat.lng);
@@ -55,6 +58,14 @@ function addMarker(canDrag, addToCookie, id, lat, lng) {
         cookie.addMarker(id, lat, lng);
 }
 
+function markerOnBin(e) {
+    let onBin = false;
+    document.elementsFromPoint(e.target._pos.x, e.target._pos.y + 45).forEach(element => {
+        if (element.id == markerBin.id) onBin = true;
+    })
+    return onBin;
+}
+
 // The marker.dragend event doesn't fire when dragging over the bin div with a mouse, so a seperate event is required
 markerBin.onpointerup = function () {
     if (activeMarker) {
@@ -64,10 +75,6 @@ markerBin.onpointerup = function () {
         markerBin.style.display = "none";
     }
 }
-
-// The hover css doesn't fire on touchscreen devices
-markerBin.addEventListener('touchstart', function(){ markerBin.style.borderStyle = "solid"; }, false)
-markerBin.addEventListener('touchend', function(){ markerBin.style.borderStyle = "dotted"; }, false)
 
 // PWS Marker 
 if (isPwsView) addMarker(false, false, "Mel's PWS", pwsCoords[1], pwsCoords[0]);
