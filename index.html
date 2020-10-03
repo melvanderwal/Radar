@@ -9,8 +9,13 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta charset="utf-8" />
 
-    <link rel="shortcut icon" href="res/favicon.ico" type="image/x-icon" />
-    
+    <!-- Prevent caching of files, such as js data files -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <link rel="shortcut icon" href="res/favicon.png" type="image/x-icon" />
+
     <link href="css/index.css" rel="stylesheet" />
     <link href="https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/0ce0c19af1.js" crossorigin="anonymous"></script>
@@ -39,7 +44,9 @@
     </template>
 
     <!-- Marker Bin where markers are dropped to delete them -->
-    <div id="markerBin"><div id="markerBinIcon" class="fas fa-dumpster"></div></div>
+    <div id="markerBin">
+        <div id="markerBinIcon" class="fas fa-dumpster"></div>
+    </div>
 
     <!-- Marker -->
     <template id="markerTemplate">
