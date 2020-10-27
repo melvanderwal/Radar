@@ -31,8 +31,8 @@ var map = new mapboxgl.Map({
 
 // Add controls to the map.    
 const controls = new mapboxControls();
+map.addControl(controls.fullscreen, "top-right");
 if (!isPwsView) {
-  map.addControl(controls.fullscreen, "top-right");
   map.addControl(controls.geolocate, "top-right");
   map.addControl(controls.marker, "top-right");
   map.addControl(controls.attribution, "bottom-right");
