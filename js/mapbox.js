@@ -90,8 +90,10 @@ map.on("load", function () {
   // Identify the first symbol layer in the map, and place the radar layer below placenames, roads, etc.
   var firstSymbolId;
   for (let layer of map.getStyle().layers) {
-    if (layer.type === 'symbol')
+    if (layer.type === 'symbol') {
       firstSymbolId = layer.id;
+      break;
+    }
   }
 
   map.addSource('radarSource', {
