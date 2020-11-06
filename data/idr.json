@@ -73,12 +73,6 @@
 		"title": "512 km composite Gympie (Mt Kanigan)",
 		"images": [
 			{
-				"fileName": "IDR081.T.202011060726.png",
-				"origSource": "http://www.bom.gov.au/radar/IDR081.T.202011060726.png",
-				"source": "https://lh3.googleusercontent.com/d/10F2EHJJ6_3puDc6Qh5htglC_QSXd3D5Z",
-				"imageDate": "2020-11-06T07:26:00.000Z"
-			},
-			{
 				"fileName": "IDR081.T.202011060731.png",
 				"origSource": "http://www.bom.gov.au/radar/IDR081.T.202011060731.png",
 				"source": "https://lh3.googleusercontent.com/d/1pxoGXdK9MQMqQ0TOeTkaKCsTqe1b_MNY",
@@ -113,6 +107,12 @@
 				"origSource": "http://www.bom.gov.au/radar/IDR081.T.202011060756.png",
 				"source": "https://lh3.googleusercontent.com/d/1xv22Pk-2_hEVbjS1OzeeqRl-RR5IejnQ",
 				"imageDate": "2020-11-06T07:56:00.000Z"
+			},
+			{
+				"fileName": "IDR081.T.202011060801.png",
+				"origSource": "http://www.bom.gov.au/radar/IDR081.T.202011060801.png",
+				"source": "https://lh3.googleusercontent.com/d/1y2JWmAEY3mWXzyuebeYHLaY_99Q5H_h1",
+				"imageDate": "2020-11-06T08:01:00.000Z"
 			}
 		],
 		"error": null
@@ -140,12 +140,6 @@
 		],
 		"title": "256 km Gympie (Mt Kanigan)",
 		"images": [
-			{
-				"fileName": "IDR082.T.202011060729.png",
-				"origSource": "http://www.bom.gov.au/radar/IDR082.T.202011060729.png",
-				"source": "https://lh3.googleusercontent.com/d/1daFly8yCTcm2DvDBkSc3p_mZHZYJB_Kq",
-				"imageDate": "2020-11-06T07:29:00.000Z"
-			},
 			{
 				"fileName": "IDR082.T.202011060734.png",
 				"origSource": "http://www.bom.gov.au/radar/IDR082.T.202011060734.png",
@@ -181,6 +175,12 @@
 				"origSource": "http://www.bom.gov.au/radar/IDR082.T.202011060759.png",
 				"source": "https://lh3.googleusercontent.com/d/1704kNur2JiskecPj-2tUWx1ggRd6BtAg",
 				"imageDate": "2020-11-06T07:59:00.000Z"
+			},
+			{
+				"fileName": "IDR082.T.202011060804.png",
+				"origSource": "http://www.bom.gov.au/radar/IDR082.T.202011060804.png",
+				"source": "https://lh3.googleusercontent.com/d/1R8kQXo1DNmSF1PvzcXez_EwbhEcU2mTa",
+				"imageDate": "2020-11-06T08:04:00.000Z"
 			}
 		],
 		"error": null
@@ -208,18 +208,6 @@
 		],
 		"title": "128 km Gympie (Mt Kanigan)",
 		"images": [
-			{
-				"fileName": "IDR083.T.202011060724.png",
-				"origSource": "http://www.bom.gov.au/radar/IDR083.T.202011060724.png",
-				"source": "https://lh3.googleusercontent.com/d/1cwaTdy4W5T2OLFNBygurmOLA9WhEh02_",
-				"imageDate": "2020-11-06T07:24:00.000Z"
-			},
-			{
-				"fileName": "IDR083.T.202011060729.png",
-				"origSource": "http://www.bom.gov.au/radar/IDR083.T.202011060729.png",
-				"source": "https://lh3.googleusercontent.com/d/104MWvwKIAAZrfT3hZdPjWWPpOI6ypVFT",
-				"imageDate": "2020-11-06T07:29:00.000Z"
-			},
 			{
 				"fileName": "IDR083.T.202011060734.png",
 				"origSource": "http://www.bom.gov.au/radar/IDR083.T.202011060734.png",
@@ -249,6 +237,18 @@
 				"origSource": "http://www.bom.gov.au/radar/IDR083.T.202011060754.png",
 				"source": "https://lh3.googleusercontent.com/d/1PK4b_otOcCdjyhfejgpAy69IpI7lxfLV",
 				"imageDate": "2020-11-06T07:54:00.000Z"
+			},
+			{
+				"fileName": "IDR083.T.202011060759.png",
+				"origSource": "http://www.bom.gov.au/radar/IDR083.T.202011060759.png",
+				"source": "https://lh3.googleusercontent.com/d/1r7sevwphLkjqIRw_ic7Xp0-US6DzcYHB",
+				"imageDate": "2020-11-06T07:59:00.000Z"
+			},
+			{
+				"fileName": "IDR083.T.202011060804.png",
+				"origSource": "http://www.bom.gov.au/radar/IDR083.T.202011060804.png",
+				"source": "https://lh3.googleusercontent.com/d/1_fLjaM4FGn6W8NDuVGCpSBw-d4tFbCLm",
+				"imageDate": "2020-11-06T08:04:00.000Z"
 			}
 		],
 		"error": null
@@ -276,12 +276,6 @@
 		],
 		"title": "64 km Gympie (Mt Kanigan)",
 		"images": [
-			{
-				"fileName": "IDR084.T.202011060729.png",
-				"origSource": "http://www.bom.gov.au/radar/IDR084.T.202011060729.png",
-				"source": "https://lh3.googleusercontent.com/d/1-pzqLm1hMqMv2R6CgVdcUSabLIe3Sety",
-				"imageDate": "2020-11-06T07:29:00.000Z"
-			},
 			{
 				"fileName": "IDR084.T.202011060734.png",
 				"origSource": "http://www.bom.gov.au/radar/IDR084.T.202011060734.png",
@@ -317,6 +311,12 @@
 				"origSource": "http://www.bom.gov.au/radar/IDR084.T.202011060759.png",
 				"source": "https://lh3.googleusercontent.com/d/1ifqwtat6C_zbVSDwQlXydbnSpGH_Fk2S",
 				"imageDate": "2020-11-06T07:59:00.000Z"
+			},
+			{
+				"fileName": "IDR084.T.202011060804.png",
+				"origSource": "http://www.bom.gov.au/radar/IDR084.T.202011060804.png",
+				"source": "https://lh3.googleusercontent.com/d/1Ha71fhncrsfXL7NItk5nnIuaPiHTpYKB",
+				"imageDate": "2020-11-06T08:04:00.000Z"
 			}
 		],
 		"error": null
@@ -407,16 +407,10 @@
 		"title": "256 km Brisbane (Marburg)",
 		"images": [
 			{
-				"fileName": "IDR502.T.202011060710.png",
-				"origSource": "http://www.bom.gov.au/radar/IDR502.T.202011060710.png",
-				"source": "https://lh3.googleusercontent.com/d/16I919-q6MaWynqUgZv213pRpaoYrwygT",
-				"imageDate": "2020-11-06T07:10:00.000Z"
-			},
-			{
-				"fileName": "IDR502.T.202011060710.png",
-				"origSource": "http://www.bom.gov.au/radar/IDR502.T.202011060710.png",
-				"source": "https://lh3.googleusercontent.com/d/16I919-q6MaWynqUgZv213pRpaoYrwygT",
-				"imageDate": "2020-11-06T07:10:00.000Z"
+				"fileName": "IDR502.T.202011060720.png",
+				"origSource": "http://www.bom.gov.au/radar/IDR502.T.202011060720.png",
+				"source": "https://lh3.googleusercontent.com/d/1OGkxWISSFQxd_RS5aGZ9LdOZM2uPpf2q",
+				"imageDate": "2020-11-06T07:20:00.000Z"
 			},
 			{
 				"fileName": "IDR502.T.202011060720.png",
@@ -441,6 +435,12 @@
 				"origSource": "http://www.bom.gov.au/radar/IDR502.T.202011060750.png",
 				"source": "https://lh3.googleusercontent.com/d/1ua48bBoew1PKUImvfG7YWUpQKWl9kyw1",
 				"imageDate": "2020-11-06T07:50:00.000Z"
+			},
+			{
+				"fileName": "IDR502.T.202011060800.png",
+				"origSource": "http://www.bom.gov.au/radar/IDR502.T.202011060800.png",
+				"source": "https://lh3.googleusercontent.com/d/16te85W0dutslx4BipYqiGkwKNmLpmTv_",
+				"imageDate": "2020-11-06T08:00:00.000Z"
 			}
 		],
 		"error": null
@@ -599,12 +599,6 @@
 		"title": "256 km Moree",
 		"images": [
 			{
-				"fileName": "IDR532.T.202011060725.png",
-				"origSource": "http://www.bom.gov.au/radar/IDR532.T.202011060725.png",
-				"source": "https://lh3.googleusercontent.com/d/1rHlGJHsOrZ4qjlrjH7ac1ItNg_19FqPU",
-				"imageDate": "2020-11-06T07:25:00.000Z"
-			},
-			{
 				"fileName": "IDR532.T.202011060730.png",
 				"origSource": "http://www.bom.gov.au/radar/IDR532.T.202011060730.png",
 				"source": "https://lh3.googleusercontent.com/d/17zmG5JsjfHX2rW2IftYEO76W3Unyaxn3",
@@ -639,6 +633,12 @@
 				"origSource": "http://www.bom.gov.au/radar/IDR532.T.202011060755.png",
 				"source": "https://lh3.googleusercontent.com/d/1hX5AIVQXVWEOmbe0SqWKtJHUOo8ORrpS",
 				"imageDate": "2020-11-06T07:55:00.000Z"
+			},
+			{
+				"fileName": "IDR532.T.202011060800.png",
+				"origSource": "http://www.bom.gov.au/radar/IDR532.T.202011060800.png",
+				"source": "https://lh3.googleusercontent.com/d/1CX4OSfjKRz4Wu05lSfmy3JyZDhTdln6C",
+				"imageDate": "2020-11-06T08:00:00.000Z"
 			}
 		],
 		"error": null
@@ -666,12 +666,6 @@
 		],
 		"title": "128 km Moree",
 		"images": [
-			{
-				"fileName": "IDR533.T.202011060725.png",
-				"origSource": "http://www.bom.gov.au/radar/IDR533.T.202011060725.png",
-				"source": "https://lh3.googleusercontent.com/d/13la_nNECMsyAjxIdTPxzNoyRtyKJrrGJ",
-				"imageDate": "2020-11-06T07:25:00.000Z"
-			},
 			{
 				"fileName": "IDR533.T.202011060730.png",
 				"origSource": "http://www.bom.gov.au/radar/IDR533.T.202011060730.png",
@@ -707,6 +701,12 @@
 				"origSource": "http://www.bom.gov.au/radar/IDR533.T.202011060755.png",
 				"source": "https://lh3.googleusercontent.com/d/1gKNHAmitXW99Ox-gCkBtXQlMsQ2q6hLP",
 				"imageDate": "2020-11-06T07:55:00.000Z"
+			},
+			{
+				"fileName": "IDR533.T.202011060800.png",
+				"origSource": "http://www.bom.gov.au/radar/IDR533.T.202011060800.png",
+				"source": "https://lh3.googleusercontent.com/d/17B6WZ8b_oDi9f9FesuyiJlJJUaIUaYpY",
+				"imageDate": "2020-11-06T08:00:00.000Z"
 			}
 		],
 		"error": null
@@ -735,16 +735,10 @@
 		"title": "512 km composite Brisbane (Mt Stapylton)",
 		"images": [
 			{
-				"fileName": "IDR661.T.202011060729.png",
-				"origSource": "http://www.bom.gov.au/radar/IDR661.T.202011060729.png",
-				"source": "https://lh3.googleusercontent.com/d/11tVcPas5fm5Z3Fo8q4biyC9yxCXkkjEG",
-				"imageDate": "2020-11-06T07:29:00.000Z"
-			},
-			{
-				"fileName": "IDR661.T.202011060729.png",
-				"origSource": "http://www.bom.gov.au/radar/IDR661.T.202011060729.png",
-				"source": "https://lh3.googleusercontent.com/d/11tVcPas5fm5Z3Fo8q4biyC9yxCXkkjEG",
-				"imageDate": "2020-11-06T07:29:00.000Z"
+				"fileName": "IDR661.T.202011060735.png",
+				"origSource": "http://www.bom.gov.au/radar/IDR661.T.202011060735.png",
+				"source": "https://lh3.googleusercontent.com/d/1KGUHlbYyixYbetKmW0Me2ewxGzGmsSyn",
+				"imageDate": "2020-11-06T07:35:00.000Z"
 			},
 			{
 				"fileName": "IDR661.T.202011060735.png",
@@ -775,6 +769,12 @@
 				"origSource": "http://www.bom.gov.au/radar/IDR661.T.202011060759.png",
 				"source": "https://lh3.googleusercontent.com/d/1I3FW4yPuX2Hc_Clpj4KUS1LKTst3-FlO",
 				"imageDate": "2020-11-06T07:59:00.000Z"
+			},
+			{
+				"fileName": "IDR661.T.202011060805.png",
+				"origSource": "http://www.bom.gov.au/radar/IDR661.T.202011060805.png",
+				"source": "https://lh3.googleusercontent.com/d/1J-E3Gbsp4FcFgvyDvVmv93VoCT1ckD_t",
+				"imageDate": "2020-11-06T08:05:00.000Z"
 			}
 		],
 		"error": null
@@ -803,16 +803,10 @@
 		"title": "256 km Brisbane (Mt Stapylton)",
 		"images": [
 			{
-				"fileName": "IDR662.T.202011060724.png",
-				"origSource": "http://www.bom.gov.au/radar/IDR662.T.202011060724.png",
-				"source": "https://lh3.googleusercontent.com/d/15cSc4JFTp1j_suHt4RsJGqPuEE1p35KR",
-				"imageDate": "2020-11-06T07:24:00.000Z"
-			},
-			{
-				"fileName": "IDR662.T.202011060724.png",
-				"origSource": "http://www.bom.gov.au/radar/IDR662.T.202011060724.png",
-				"source": "https://lh3.googleusercontent.com/d/15cSc4JFTp1j_suHt4RsJGqPuEE1p35KR",
-				"imageDate": "2020-11-06T07:24:00.000Z"
+				"fileName": "IDR662.T.202011060730.png",
+				"origSource": "http://www.bom.gov.au/radar/IDR662.T.202011060730.png",
+				"source": "https://lh3.googleusercontent.com/d/1ps02yzX7Frqz1wWXBAwvOwL731JHoKRC",
+				"imageDate": "2020-11-06T07:30:00.000Z"
 			},
 			{
 				"fileName": "IDR662.T.202011060730.png",
@@ -843,6 +837,12 @@
 				"origSource": "http://www.bom.gov.au/radar/IDR662.T.202011060754.png",
 				"source": "https://lh3.googleusercontent.com/d/1ANyV_Vqoy7nTJx_I5N9cx9BHb24fEvdG",
 				"imageDate": "2020-11-06T07:54:00.000Z"
+			},
+			{
+				"fileName": "IDR662.T.202011060800.png",
+				"origSource": "http://www.bom.gov.au/radar/IDR662.T.202011060800.png",
+				"source": "https://lh3.googleusercontent.com/d/1za70ZWlmveBZI54O56PJzWfQinYEAAOO",
+				"imageDate": "2020-11-06T08:00:00.000Z"
 			}
 		],
 		"error": null
@@ -871,16 +871,10 @@
 		"title": "128 km Brisbane (Mt Stapylton)",
 		"images": [
 			{
-				"fileName": "IDR663.T.202011060724.png",
-				"origSource": "http://www.bom.gov.au/radar/IDR663.T.202011060724.png",
-				"source": "https://lh3.googleusercontent.com/d/1dU-owSpPI07pJrT9BLLkKm4vhMq6jx2N",
-				"imageDate": "2020-11-06T07:24:00.000Z"
-			},
-			{
-				"fileName": "IDR663.T.202011060724.png",
-				"origSource": "http://www.bom.gov.au/radar/IDR663.T.202011060724.png",
-				"source": "https://lh3.googleusercontent.com/d/1dU-owSpPI07pJrT9BLLkKm4vhMq6jx2N",
-				"imageDate": "2020-11-06T07:24:00.000Z"
+				"fileName": "IDR663.T.202011060730.png",
+				"origSource": "http://www.bom.gov.au/radar/IDR663.T.202011060730.png",
+				"source": "https://lh3.googleusercontent.com/d/1CuvfzVbQFEhVXQfOAKbvZjbZYxM9Pjc_",
+				"imageDate": "2020-11-06T07:30:00.000Z"
 			},
 			{
 				"fileName": "IDR663.T.202011060730.png",
@@ -911,6 +905,12 @@
 				"origSource": "http://www.bom.gov.au/radar/IDR663.T.202011060754.png",
 				"source": "https://lh3.googleusercontent.com/d/18gsptsMzAJis_CxOYUiuw2Kqa0iCuemU",
 				"imageDate": "2020-11-06T07:54:00.000Z"
+			},
+			{
+				"fileName": "IDR663.T.202011060800.png",
+				"origSource": "http://www.bom.gov.au/radar/IDR663.T.202011060800.png",
+				"source": "https://lh3.googleusercontent.com/d/1ov7snsj-YQsl724cTdYNNqMFieqUqy1V",
+				"imageDate": "2020-11-06T08:00:00.000Z"
 			}
 		],
 		"error": null
@@ -939,16 +939,10 @@
 		"title": "64 km Brisbane (Mt Stapylton)",
 		"images": [
 			{
-				"fileName": "IDR664.T.202011060724.png",
-				"origSource": "http://www.bom.gov.au/radar/IDR664.T.202011060724.png",
-				"source": "https://lh3.googleusercontent.com/d/1pKkD70IldGupcnkb5_m2CTgI0qgvJsrn",
-				"imageDate": "2020-11-06T07:24:00.000Z"
-			},
-			{
-				"fileName": "IDR664.T.202011060724.png",
-				"origSource": "http://www.bom.gov.au/radar/IDR664.T.202011060724.png",
-				"source": "https://lh3.googleusercontent.com/d/1pKkD70IldGupcnkb5_m2CTgI0qgvJsrn",
-				"imageDate": "2020-11-06T07:24:00.000Z"
+				"fileName": "IDR664.T.202011060730.png",
+				"origSource": "http://www.bom.gov.au/radar/IDR664.T.202011060730.png",
+				"source": "https://lh3.googleusercontent.com/d/1UgNaQTvT9HGZ1xgGyEo9QDVhF3xWBNxW",
+				"imageDate": "2020-11-06T07:30:00.000Z"
 			},
 			{
 				"fileName": "IDR664.T.202011060730.png",
@@ -979,6 +973,12 @@
 				"origSource": "http://www.bom.gov.au/radar/IDR664.T.202011060754.png",
 				"source": "https://lh3.googleusercontent.com/d/1Boo1xjtTg8xpA_T0wFC2yMTof6vcEcM7",
 				"imageDate": "2020-11-06T07:54:00.000Z"
+			},
+			{
+				"fileName": "IDR664.T.202011060800.png",
+				"origSource": "http://www.bom.gov.au/radar/IDR664.T.202011060800.png",
+				"source": "https://lh3.googleusercontent.com/d/1QSl8GhPDxWJDJyWw2tDMqfcr0IocQJ1t",
+				"imageDate": "2020-11-06T08:00:00.000Z"
 			}
 		],
 		"error": null
@@ -1006,12 +1006,6 @@
 		],
 		"title": "512 km composite Warrego",
 		"images": [
-			{
-				"fileName": "IDR671.T.202011060731.png",
-				"origSource": "http://www.bom.gov.au/radar/IDR671.T.202011060731.png",
-				"source": "https://lh3.googleusercontent.com/d/1JLDpqQjlFDtoPSrobP6MpKfw8chHuJCS",
-				"imageDate": "2020-11-06T07:31:00.000Z"
-			},
 			{
 				"fileName": "IDR671.T.202011060736.png",
 				"origSource": "http://www.bom.gov.au/radar/IDR671.T.202011060736.png",
@@ -1047,6 +1041,12 @@
 				"origSource": "http://www.bom.gov.au/radar/IDR671.T.202011060801.png",
 				"source": "https://lh3.googleusercontent.com/d/1qaKfUO7zLjeBUCfbOGug_Lf3_0WeKonm",
 				"imageDate": "2020-11-06T08:01:00.000Z"
+			},
+			{
+				"fileName": "IDR671.T.202011060806.png",
+				"origSource": "http://www.bom.gov.au/radar/IDR671.T.202011060806.png",
+				"source": "https://lh3.googleusercontent.com/d/1RaXyex0Kf8AAOqNgrwR5FEZDh-YehnlA",
+				"imageDate": "2020-11-06T08:06:00.000Z"
 			}
 		],
 		"error": null
@@ -1109,6 +1109,12 @@
 				"origSource": "http://www.bom.gov.au/radar/IDR672.T.202011060755.png",
 				"source": "https://lh3.googleusercontent.com/d/1RYvCRH_Ab1Z7VhUSnwSJfGzEVNx1RpCy",
 				"imageDate": "2020-11-06T07:55:00.000Z"
+			},
+			{
+				"fileName": "IDR672.T.202011060800.png",
+				"origSource": "http://www.bom.gov.au/radar/IDR672.T.202011060800.png",
+				"source": "https://lh3.googleusercontent.com/d/1P46UzNGB1K_4fXywAV_W6E8Ug26qxNzL",
+				"imageDate": "2020-11-06T08:00:00.000Z"
 			}
 		],
 		"error": null
@@ -1136,12 +1142,6 @@
 		],
 		"title": "128 km Warrego",
 		"images": [
-			{
-				"fileName": "IDR673.T.202011060725.png",
-				"origSource": "http://www.bom.gov.au/radar/IDR673.T.202011060725.png",
-				"source": "https://lh3.googleusercontent.com/d/1Um1LFg7Ki5JFILwCSxGOb0f40GNHxLnS",
-				"imageDate": "2020-11-06T07:25:00.000Z"
-			},
 			{
 				"fileName": "IDR673.T.202011060730.png",
 				"origSource": "http://www.bom.gov.au/radar/IDR673.T.202011060730.png",
@@ -1177,6 +1177,12 @@
 				"origSource": "http://www.bom.gov.au/radar/IDR673.T.202011060755.png",
 				"source": "https://lh3.googleusercontent.com/d/1xG0CdOf8EXEf_qDyinCovVqtZ9PQyRbs",
 				"imageDate": "2020-11-06T07:55:00.000Z"
+			},
+			{
+				"fileName": "IDR673.T.202011060800.png",
+				"origSource": "http://www.bom.gov.au/radar/IDR673.T.202011060800.png",
+				"source": "https://lh3.googleusercontent.com/d/1d4Ux4LNKBZjq-fzccFw5zSI6VOxc7lJS",
+				"imageDate": "2020-11-06T08:00:00.000Z"
 			}
 		],
 		"error": null
