@@ -22,12 +22,11 @@ else {
 
 var map = new mapboxgl.Map({
   container: "map",
-  style: "mapbox://styles/melvanderwal/ckdr2rdye0kp219jzcq4z0gcr",
+  style:  "mapbox://styles/melvanderwal/ckdnzyjcq1mez1it8o84igkqc",
   center: startLocation.center,
   zoom: startLocation.zoom,
   attributionControl: false
 });
-
 
 // Add controls to the map.    
 const controls = new mapboxControls();
@@ -47,6 +46,25 @@ let stationGeoJson = null;
 let radarLocked = false;
 
 map.on("load", function () {
+
+  // Add 3D terrain and sky layers
+  map.addSource('dem', {
+    'type': 'raster-dem',
+    'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
+    'tileSize': 512,
+    'maxzoom': 14
+  });
+  map.setTerrain({ 'source': 'dem', 'exaggeration': 2 });
+
+  map.addLayer({
+    'id': 'sky',
+    'type': 'sky',
+    'paint': {
+      'sky-type': 'atmosphere',
+      'sky-atmosphere-sun': [0.0, 0.0],
+      'sky-atmosphere-sun-intensity': 2
+    }
+  });
 
   // ========= Radar station layer  =========
   map.addSource('stationSource', { 'type': 'geojson', 'data': "data/station.json" });
@@ -209,7 +227,7 @@ function setActiveIDR() {
 
   // If the new IDR is different than the current one, update the current IDR
   if (activeIdr.name != newIdrName) {
-    fetch(idrUrl, {cache: "no-store"})
+    fetch(idrUrl, { cache: "no-store" })
       .then(response => response.json())
       .then(idrJson => {
         currentImageIdx = 0;
