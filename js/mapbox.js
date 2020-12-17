@@ -146,23 +146,16 @@ map.on("load", function () {
   // Move through radar images on a timer
   setInterval(function () {
     if (activeIdr.imagePaths && activeIdr.imagePaths.length > 0) {
-      //currentImageIdx = (currentImageIdx + 1) % (activeIdr.images.length);
       currentImageIdx = (currentImageIdx == (activeIdr.imagePaths.length-1)) ? 0 : currentImageIdx + 1;
       let opacity = (currentImageIdx+1) / activeIdr.imagePaths.length;
       if (currentImageIdx == (activeIdr.imagePaths.length-1)) opacity = 0;
-      //map.setPaintProperty('radarLayer', 'raster-fade-duration', 0);
-      //map.setPaintProperty('radarLayer', 'raster-opacity', opacity);
-      //map.getSource('radarSource').updateImage({ url: activeIdr.images[currentImageIdx].source });
-      
       map.getSource('radarSource').updateImage({ url: activeIdr.imagePaths[currentImageIdx] });
-
       map.setPaintProperty('radarLayer', 'raster-opacity', opacity);
       
       if (!isPwsView) {
         document.getElementById("weatherStation").textContent = activeIdr.title;
         let imageTime = new Date(activeIdr.images[currentImageIdx].imageDate).toLocaleString('en-AU');
-        //document.getElementById("radarTime").textContent = imageTime.replace(":00 ", " ");
-        document.getElementById("radarTime").textContent = currentImageIdx + " " + opacity;
+        document.getElementById("radarTime").textContent = imageTime.replace(":00 ", " ");
       }
     }
   }, 800);
