@@ -146,17 +146,17 @@ map.on("load", function () {
   // Move through radar images on a timer
   setInterval(function () {
     if (activeIdr.imagePaths && activeIdr.imagePaths.length > 0) {
-      currentImageIdx = (currentImageIdx == (activeIdr.imagePaths.length-1)) ? 0 : currentImageIdx + 1;
-      let opacity = (currentImageIdx+1) / activeIdr.imagePaths.length;
+       let opacity = (currentImageIdx+1) / activeIdr.imagePaths.length;
       if (currentImageIdx == (activeIdr.imagePaths.length-1)) opacity = 0;
-      map.getSource('radarSource').updateImage({ url: activeIdr.imagePaths[currentImageIdx] });
+      map.getSource('radarSource').updateImage({ url: activeIdr.imagePaths[currentImageIdx].source });
       map.setPaintProperty('radarLayer', 'raster-opacity', opacity);
       
       if (!isPwsView) {
         document.getElementById("weatherStation").textContent = activeIdr.title;
-        let imageTime = new Date(activeIdr.images[currentImageIdx].imageDate).toLocaleString('en-AU');
+        let imageTime = new Date(activeIdr.imagePaths[currentImageIdx].imageDate).toLocaleString('en-AU');
         document.getElementById("radarTime").textContent = imageTime.replace(":00 ", " ");
       }
+      currentImageIdx = (currentImageIdx == (activeIdr.imagePaths.length-1)) ? 0 : currentImageIdx + 1;
     }
   }, 800);
 
@@ -237,12 +237,12 @@ function setActiveIDR() {
         currentImageIdx = 0;
         activeIdr = idrJson[newIdrName];
         map.getSource('radarSource').setCoordinates(activeIdr.bounds);
-        activeIdr.imagePaths = [activeIdr.images[0].source];
+        activeIdr.imagePaths = [activeIdr.images[0]];
         activeIdr.images.forEach(element => {
-          activeIdr.imagePaths.push(element.source);
+          activeIdr.imagePaths.push(element);
         });
-        activeIdr.imagePaths.push(activeIdr.images[activeIdr.images.length-1].source);
-        activeIdr.imagePaths.push(activeIdr.images[activeIdr.images.length-1].source);
+        activeIdr.imagePaths.push(activeIdr.images[activeIdr.images.length-1]);
+        activeIdr.imagePaths.push(activeIdr.images[activeIdr.images.length-1]);
       })
       .catch(function (error) {
         console.log(error);
