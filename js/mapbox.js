@@ -145,14 +145,24 @@ map.on("load", function () {
 
   // Move through radar images on a timer
   setInterval(function () {
-    if (activeIdr.images && activeIdr.images.length > 0) {
-      currentImageIdx = (currentImageIdx + 1) % (activeIdr.images.length);
-      map.getSource('radarSource').updateImage({ url: activeIdr.images[currentImageIdx].source });
-      map.setPaintProperty('radarLayer', 'raster-opacity', (currentImageIdx + 1) / (activeIdr.images.length));
+    if (activeIdr.imagePaths && activeIdr.imagePaths.length > 0) {
+      //currentImageIdx = (currentImageIdx + 1) % (activeIdr.images.length);
+      currentImageIdx = (currentImageIdx == (activeIdr.imagePaths.length-1)) ? 0 : currentImageIdx + 1;
+      let opacity = (currentImageIdx+1) / activeIdr.imagePaths.length;
+      if (currentImageIdx == (activeIdr.imagePaths.length-1)) opacity = 0;
+      //map.setPaintProperty('radarLayer', 'raster-fade-duration', 0);
+      //map.setPaintProperty('radarLayer', 'raster-opacity', opacity);
+      //map.getSource('radarSource').updateImage({ url: activeIdr.images[currentImageIdx].source });
+      
+      map.getSource('radarSource').updateImage({ url: activeIdr.imagePaths[currentImageIdx] });
+
+      map.setPaintProperty('radarLayer', 'raster-opacity', opacity);
+      
       if (!isPwsView) {
         document.getElementById("weatherStation").textContent = activeIdr.title;
         let imageTime = new Date(activeIdr.images[currentImageIdx].imageDate).toLocaleString('en-AU');
-        document.getElementById("radarTime").textContent = imageTime.replace(":00 ", " ");
+        //document.getElementById("radarTime").textContent = imageTime.replace(":00 ", " ");
+        document.getElementById("radarTime").textContent = currentImageIdx + " " + opacity;
       }
     }
   }, 800);
@@ -225,7 +235,8 @@ function setActiveIDR() {
   }
   let newIdrName = idrs[idxIdr].name;
 
-  // If the new IDR is different than the current one, update the current IDR
+  // If the new IDR is different than the current one, update the current IDR.  
+  // Duplicate the start and end images for the radar loop, for visual effect.
   if (activeIdr.name != newIdrName) {
     fetch(idrUrl, { cache: "no-store" })
       .then(response => response.json())
@@ -233,6 +244,12 @@ function setActiveIDR() {
         currentImageIdx = 0;
         activeIdr = idrJson[newIdrName];
         map.getSource('radarSource').setCoordinates(activeIdr.bounds);
+        activeIdr.imagePaths = [activeIdr.images[0].source];
+        activeIdr.images.forEach(element => {
+          activeIdr.imagePaths.push(element.source);
+        });
+        activeIdr.imagePaths.push(activeIdr.images[activeIdr.images.length-1].source);
+        activeIdr.imagePaths.push(activeIdr.images[activeIdr.images.length-1].source);
       })
       .catch(function (error) {
         console.log(error);
