@@ -13,11 +13,15 @@ if (isPwsView) document.getElementById("kickstart").style.display = "none";
 let startLocation = cookie.getMapLocation();
 if (isPwsView) {
   startLocation.center = pwsCoords;
-  startLocation.zoom = 9;
+  startLocation.zoom = 15;
+  startLocation.bearing = 330;
+  startLocation.pitch = 70;
 }
 else {
-  startLocation.zoom = urlParams.has("zoom") ? urlParams.zoom : 9;
-  startLocation.center = (urlParams.has("lat") && urlParams.has("lng")) ? [urlParams.lng, urlParams.lat] : [152.81, -27.5276];
+  startLocation.zoom = startLocation.zoom != null ? startLocation.zoom : 9;
+  startLocation.center = startLocation.center != null ? startLocation.center : [152.81, -27.5276];
+  startLocation.bearing = startLocation.bearing != null ? startLocation.bearing : 0;
+  startLocation.pitch = startLocation.pitch != null ? startLocation.pitch : 0;
 }
 
 var map = new mapboxgl.Map({
@@ -25,6 +29,8 @@ var map = new mapboxgl.Map({
   style:  "mapbox://styles/melvanderwal/ckdnzyjcq1mez1it8o84igkqc",
   center: startLocation.center,
   zoom: startLocation.zoom,
+  bearing: startLocation.bearing,
+  pitch: startLocation.pitch,
   attributionControl: false
 });
 
@@ -146,7 +152,7 @@ map.on("load", function () {
   // Move through radar images on a timer
   setInterval(function () {
     if (activeIdr.imagePaths && activeIdr.imagePaths.length > 0) {
-       let opacity = (currentImageIdx+1) / activeIdr.imagePaths.length;
+      let opacity = (currentImageIdx+1) / activeIdr.imagePaths.length;
       if (currentImageIdx == (activeIdr.imagePaths.length-1)) opacity = 0;
       map.getSource('radarSource').updateImage({ url: activeIdr.imagePaths[currentImageIdx].source });
       map.setPaintProperty('radarLayer', 'raster-opacity', opacity);
@@ -165,7 +171,10 @@ map.on("load", function () {
 });  // End On Load
 
 // Update active station and radar images when a change to the map view requires it
-map.on("moveend", setActiveStation);
+map.on("moveend", function () {
+  setActiveStation();
+  if (!isPwsView) cookie.setMapLocation();
+});
 
 function setActiveStation(feature) {
   if (radarLocked || !stationGeoJson) return;

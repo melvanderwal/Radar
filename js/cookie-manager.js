@@ -34,19 +34,22 @@ class CookieManager {
     }
 
     getMarkers() {
-        console.log(this.markers);
         return this.markers;
     }
 
     setMapLocation() {
         this.set("center", JSON.stringify(map.getCenter()));
         this.set("zoom", map.getZoom());
+        this.set("pitch", map.getPitch());
+        this.set("bearing", map.getBearing());
     }
 
     getMapLocation() {
         return {
             "zoom": this.get("zoom"),
-            "center": JSON.parse(this.get("center"))
+            "center": JSON.parse(this.get("center")),
+            "pitch": this.get("pitch"),
+            "bearing": this.get("bearing")
         }
     }
 
