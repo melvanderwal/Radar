@@ -15,7 +15,7 @@ if (isPwsView) {
   startLocation.center = pwsCoords;
   startLocation.zoom = 15;
   startLocation.bearing = 330;
-  startLocation.pitch = 70;
+  startLocation.pitch = 80;
 }
 else {
   startLocation.zoom = startLocation.zoom != null ? startLocation.zoom : 9;
