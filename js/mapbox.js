@@ -26,7 +26,7 @@ else {
 
 var map = new mapboxgl.Map({
   container: "map",
-  style:  "mapbox://styles/melvanderwal/ckdnzyjcq1mez1it8o84igkqc",
+  style: "mapbox://styles/melvanderwal/ckdnzyjcq1mez1it8o84igkqc",
   center: startLocation.center,
   zoom: startLocation.zoom,
   bearing: startLocation.bearing,
@@ -53,7 +53,7 @@ let radarLocked = false;
 
 map.on("load", function () {
 
-  // Add 3D terrain and sky layers
+  // ========= 3D terrain and sky layers  =========  
   map.addSource('dem', {
     'type': 'raster-dem',
     'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
@@ -71,6 +71,22 @@ map.on("load", function () {
       'sky-atmosphere-sun-intensity': 2
     }
   });
+  // ========= Marker line layer  =========
+  map.addSource('markerLineSource', { 'type': 'geojson', 'data': markerLineJson });
+  map.addLayer({
+    'id': 'markerLine',
+    'type': 'line',
+    'source': 'markerLineSource',
+    'layout': {
+      'line-join': 'round',
+      'line-cap': 'round'
+    },
+    'paint': {
+      'line-color': '#888',
+      'line-width': 5
+    }
+  });
+
 
   // ========= Radar station layer  =========
   map.addSource('stationSource', { 'type': 'geojson', 'data': "data/station.json" });
@@ -152,17 +168,17 @@ map.on("load", function () {
   // Move through radar images on a timer
   setInterval(function () {
     if (activeIdr.imagePaths && activeIdr.imagePaths.length > 0) {
-      let opacity = (currentImageIdx+1) / activeIdr.imagePaths.length;
-      if (currentImageIdx == (activeIdr.imagePaths.length-1)) opacity = 0;
+      let opacity = (currentImageIdx + 1) / activeIdr.imagePaths.length;
+      if (currentImageIdx == (activeIdr.imagePaths.length - 1)) opacity = 0;
       map.getSource('radarSource').updateImage({ url: activeIdr.imagePaths[currentImageIdx].source });
       map.setPaintProperty('radarLayer', 'raster-opacity', opacity);
-      
+
       if (!isPwsView) {
         document.getElementById("weatherStation").textContent = activeIdr.title;
         let imageTime = new Date(activeIdr.imagePaths[currentImageIdx].imageDate).toLocaleString('en-AU');
         document.getElementById("radarTime").textContent = imageTime.replace(":00 ", " ");
       }
-      currentImageIdx = (currentImageIdx == (activeIdr.imagePaths.length-1)) ? 0 : currentImageIdx + 1;
+      currentImageIdx = (currentImageIdx == (activeIdr.imagePaths.length - 1)) ? 0 : currentImageIdx + 1;
     }
   }, 800);
 
@@ -174,6 +190,13 @@ map.on("load", function () {
 map.on("moveend", function () {
   setActiveStation();
   if (!isPwsView) cookie.setMapLocation();
+});
+
+// On double-click, draw a line from the marker closest to the map centre to the mouse
+map.doubleClickZoom.disable();
+map.on('dblclick', function (e) {
+  updateMarkerLine(e);
+  map.getSource('markerLineSource').setData(markerLineJson);
 });
 
 function setActiveStation(feature) {
@@ -250,8 +273,8 @@ function setActiveIDR() {
         activeIdr.images.forEach(element => {
           activeIdr.imagePaths.push(element);
         });
-        activeIdr.imagePaths.push(activeIdr.images[activeIdr.images.length-1]);
-        activeIdr.imagePaths.push(activeIdr.images[activeIdr.images.length-1]);
+        activeIdr.imagePaths.push(activeIdr.images[activeIdr.images.length - 1]);
+        activeIdr.imagePaths.push(activeIdr.images[activeIdr.images.length - 1]);
       })
       .catch(function (error) {
         console.log(error);

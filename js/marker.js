@@ -58,6 +58,31 @@ function addMarker(canDrag, addToCookie, id, lat, lng) {
         cookie.addMarker(id, lat, lng);
 }
 
+// Line drawn from marker closest to center of map to double-click point
+var markerLineJson = {
+    'type': 'FeatureCollection', 'features': [{ "type": "Feature", "geometry": null, "properties": {} }]
+};
+
+function updateMarkerLine(e) {
+    if (cookie.markers.length == 0) return;
+
+    let nearestDistance = 100000000000;
+    cookie.markers.forEach(marker => {
+        let markerCoords = new mapboxgl.LngLat(marker.lng, marker.lat);
+        var distToMarker = markerCoords.distanceTo(map.getCenter());
+        if (distToMarker < nearestDistance) {
+            nearestDistance = distToMarker;
+            markerLineJson.features[0].geometry = {
+                'type': 'LineString',
+                'coordinates': [
+                    markerCoords.toArray(),
+                    e.lngLat.toArray()
+                ]
+            }
+        }
+    });
+}
+
 function markerOnBin(e) {
     let onBin = false;
     document.elementsFromPoint(e.target._pos.x, e.target._pos.y + 45).forEach(element => {
