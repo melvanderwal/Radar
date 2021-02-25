@@ -13,7 +13,7 @@ if (isPwsView) document.getElementById("kickstart").style.display = "none";
 let startLocation = cookie.getMapLocation();
 if (isPwsView) {
   startLocation.center = pwsCoords;
-  startLocation.zoom = 15;
+  startLocation.zoom = 10;
   startLocation.bearing = 330;
   startLocation.pitch = 80;
 }
