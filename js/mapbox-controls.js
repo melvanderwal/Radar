@@ -19,7 +19,7 @@ class MarkerControl {
     onAdd(map) {
         this._map = map;
         this._container = document.createElement('div');
-        this._container.className = 'mapboxgl-ctrl';
+        this._container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
         let templateNode = document.getElementById("markerControl").cloneNode(true);
         this._container.innerHTML = templateNode.innerHTML;
         this._container.onclick = function () { addMarker(true, true, new Date().getTime()); }
