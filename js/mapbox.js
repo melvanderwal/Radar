@@ -46,9 +46,8 @@ if (!isPwsView) {
 
 // Variables tracking the currently selected station and IDR
 let activeStationGeoJson = { 'type': 'FeatureCollection', 'features': [] };
-let activeIdr = { "name": "none", "images": [] };
 let currentImageIdx = 0;
-let stationGeoJson = null;
+let stationGeoJson = willyWeather.stations;
 let radarLocked = false;
 
 map.on("load", function () {
@@ -89,7 +88,7 @@ map.on("load", function () {
 
 
   // ========= Radar station layer  =========
-  map.addSource('stationSource', { 'type': 'geojson', 'data': "data/station.json" });
+  map.addSource('stationSource', { 'type': 'geojson', 'data': stationGeoJson });
   map.addImage('stationSymbol', pulsingDot, { pixelRatio: 3 });
   map.addLayer({
     'id': 'stationLayer',
@@ -154,36 +153,30 @@ map.on("load", function () {
   };
   map.addLayer(radarLayer, firstSymbolId);
 
-  // Load station geojson and set the current station based on location
-  fetch("data/station.json")
-    .then(response => response.json())
-    .then(stnJson => {
-      stationGeoJson = stnJson;
-      setActiveStation();
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+
 
   // Move through radar images on a timer
   setInterval(function () {
-    if (activeIdr.imagePaths && activeIdr.imagePaths.length > 0) {
-      let opacity = (currentImageIdx + 1) / activeIdr.imagePaths.length;
-      if (currentImageIdx == (activeIdr.imagePaths.length - 1)) opacity = 0;
-      map.getSource('radarSource').updateImage({ url: activeIdr.imagePaths[currentImageIdx].source });
+    if (activeStationGeoJson.features.length > 0) {
+      let props = activeStationGeoJson.features[0].properties;
+      let overlays = props.overlays;
+      let opacity = (currentImageIdx + 1) / overlays.length;
+      if (currentImageIdx == (overlays.length - 1)) opacity = 0;
+      map.getSource('radarSource').updateImage({ url: props.overlayPath + overlays[currentImageIdx].name });
       map.setPaintProperty('radarLayer', 'raster-opacity', opacity);
 
       if (!isPwsView) {
-        document.getElementById("weatherStation").textContent = activeIdr.title;
-        let imageTime = new Date(activeIdr.imagePaths[currentImageIdx].imageDate).toLocaleString('en-AU');
+        document.getElementById("weatherStation").textContent = props.name;
+        let imageTime = new Date(overlays[currentImageIdx].dateTime).toLocaleString('en-AU');
         document.getElementById("radarTime").textContent = imageTime.replace(":00 ", " ");
       }
-      currentImageIdx = (currentImageIdx == (activeIdr.imagePaths.length - 1)) ? 0 : currentImageIdx + 1;
+      currentImageIdx = (currentImageIdx == (overlays.length - 1)) ? 0 : currentImageIdx + 1;
     }
   }, 800);
 
   // Hide the startup animation
   document.getElementById("kickstart").style.display = "none";
+  setActiveStation();
 });  // End On Load
 
 // Update active station and radar images when a change to the map view requires it
@@ -224,17 +217,18 @@ function setActiveStation(feature) {
   }
 
   // Update active station layer if the current station is different than the previous one.
-  if (activeStationGeoJson.features.length == 0 || activeStationGeoJson.features[0].properties.id != nearestStation.properties.id) {
+  if (nearestStation && (activeStationGeoJson.features.length == 0 || activeStationGeoJson.features[0].properties.id != nearestStation.properties.id)) {
     activeStationGeoJson = { 'type': 'FeatureCollection', 'features': [nearestStation] };
     map.getSource('activeStationSource').setData(activeStationGeoJson);
+    map.getSource('radarSource').setCoordinates(nearestStation.properties.bounds);
   }
 
-  // Update the radar images, and if a station feature was provided to this function, lock to that station
-  setActiveIDR();
+  // If a station feature was provided to this function, lock to that station
+  //setActiveIDR();
   if (hasFeature) controls.lock.lockRadar();
 }
 
-function setActiveIDR() {
+/*function setActiveIDR() {
   // If the radar is locked or the active station is empty (occurs at startup), exit
   if (radarLocked || activeStationGeoJson.features.length == 0) return;
 
@@ -280,4 +274,4 @@ function setActiveIDR() {
         console.log(error);
       });
   }
-}
+}*/
