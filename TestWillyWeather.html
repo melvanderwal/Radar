@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base target="_top">
+    <title>Test WillyWeather</title>
+</head>
+
+<body>
+    <span id="jsonHolder">JSON Data Goes Here</span><br>
+    <canvas id="imgHolder" alt="Image goes here"></canvas>
+
+    <script>
+        let imgUrl = "https://cdnmaps.willyweather.com.au/radar/28-202103290140.png";
+        let jsonUrl = "https://api.willyweather.com.au/v2/NTQwZjI1MzIwMTY1YzNiYTI5NjE4Ym/locations/8055/weather.json?forecasts=weather,rainfall&regionPrecis=true";        
+        //let imgUrl = "";
+        //let jsonUrl = "https://script.google.com/macros/s/AKfycbxZLDmk6NSzDkmP5oiBcv05tuVr1ueZWTE1ZqcEwUseFOlWWp32tzb3vwf7AGS65EL-nA/exec?action=forecast";
+
+        let canv = document.getElementById("imgHolder");
+        let ctx = canv.getContext("2d");
+        let img = new Image();
+        img.crossOrigin = "anonymous";
+        img.src = imgUrl;
+        img.onload = function () {
+            canv.width = img.naturalWidth;
+            canv.height = img.naturalHeight;
+            ctx.drawImage(img, 0, 0);
+        }
+
+        fetch(jsonUrl, { method: 'GET' })
+            .then(response => response.json())
+            .then(forecastJson => {
+                let spn = document.getElementById("jsonHolder");
+                spn.textContent = JSON.stringify(forecastJson);
+            })
+    </script>
+
+</body>
