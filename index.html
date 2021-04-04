@@ -25,6 +25,9 @@
     <!-- Primary div holding the Mapbox map -->
     <div id="map"></div>
 
+    <!-- Canvas displaying radar images -->
+    <canvas id="radarAnimation"></canvas>
+
     <!-- Transparent fading border around edge, turned on by url parameter: fade=true -->
     <div id="borderFade"><span id="radarTitle">Radar</span></div>
 
@@ -40,7 +43,8 @@
 
     <!-- Marker Control -->
     <template id="markerControl">
-        <button id="addMarkerBtn" type=button class="mapboxBtn" title="Add location marker" aria-label="Add location marker"><i class="fas fa-map-marker-alt"></i></button>
+        <button id="addMarkerBtn" type=button class="mapboxBtn" title="Add location marker"
+            aria-label="Add location marker"><i class="fas fa-map-marker-alt"></i></button>
     </template>
 
     <!-- Marker Bin where markers are dropped to delete them -->
@@ -69,7 +73,7 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
     <script src="js/cookie-manager.js"></script>
     <script src="js/mapbox-controls.js"></script>
-    <script src="js/willyWeather.js"></script>
+    <script src="js/willyWeather.js" crossOrigin="anonymous"></script>
     <script src="js/mapbox.js"></script>
     <script src="js/marker.js"></script>
     <script src="js/pulsing-dot.js"></script>
