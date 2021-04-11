@@ -9,7 +9,7 @@ if (urlParams.get("label") == "true") document.getElementById("radarTitle").styl
 let isPwsView = urlParams.get("pws") == "true";
 if (isPwsView) document.getElementById("kickstart").style.display = "none";
 
-// Create map object.  Use startup location from PWS, cookie,or use defaults.
+// Create map object.  Use startup location from PWS, cookie, or use defaults.
 let startLocation = cookie.getMapLocation();
 if (isPwsView) {
   startLocation.center = pwsCoords;
@@ -44,7 +44,7 @@ if (!isPwsView) {
   map.addControl(controls.lock, "top-left");
 }
 
-// Variables tracking the currently selected station and IDR
+// Variables tracking the currently selected station
 let activeStationGeoJson = { 'type': 'FeatureCollection', 'features': [] };
 let currentImageIdx = 0;
 let stationGeoJson = willyWeather.stations;
@@ -53,7 +53,7 @@ var radarCanvas = document.getElementById('radarAnimation');
 var radarCtx = radarCanvas.getContext('2d');
 var radarImages = [];
 var isLoading = true;
-//radarCtx.imageSmoothingQuality = "low";
+
 
 map.on("load", function () {
 
@@ -75,6 +75,7 @@ map.on("load", function () {
       'sky-atmosphere-sun-intensity': 2
     }
   });
+
   // ========= Marker line layer  =========
   map.addSource('markerLineSource', { 'type': 'geojson', 'data': markerLineJson });
   map.addLayer({
@@ -90,7 +91,6 @@ map.on("load", function () {
       'line-width': 5
     }
   });
-
 
   // ========= Radar station layer  =========
   map.addSource('stationSource', { 'type': 'geojson', 'data': stationGeoJson });
@@ -121,7 +121,7 @@ map.on("load", function () {
 
 
   // ========= Currently selected radar station layer  =========
-  map.addSource('activeStationSource', { 'type': 'geojson', 'data': { 'type': 'FeatureCollection', 'features': [] } });
+  map.addSource('activeStationSource', { 'type': 'geojson', 'data': activeStationGeoJson });
   map.addImage('activeStationSymbol', pulsingDot, { pixelRatio: 1.5 });
   map.addLayer({
     'id': 'activeStationLayer',
@@ -159,12 +159,12 @@ map.on("load", function () {
   map.addLayer(radarLayer, firstSymbolId);
 
 
-
   // Move through radar images on a timer
   setInterval(function () {
+    // At startup there is a delay until the station GeoJson is ready to use...  set the active station when it is available
     if (activeStationGeoJson.features.length == 0 && stationGeoJson.features.length > 0) setActiveStation();
 
-    // Exit if loading, no feature, the feature doesn't have overlays, or the images aren't present yet in the overlays
+    // Exit if loading, no feature, the feature doesn't have overlays, or the images aren't present yet in the array
     if (isLoading || !activeStationGeoJson ||
       activeStationGeoJson.features.length == 0 ||
       activeStationGeoJson.features[0].properties.overlays.length == 0 ||
@@ -187,15 +187,15 @@ map.on("load", function () {
     let opacityFactor = currentImageIdx - drawImageIdx + 1;
     radarCtx.clearRect(0, 0, radarCanvas.width, radarCanvas.height);
     if (currentImageIdx > 0 && currentImageIdx <= drawImageIdx + 1) {
-      radarCtx.globalAlpha = 0.2 / opacityFactor;
+      radarCtx.globalAlpha = 0.15 / opacityFactor;
       radarCtx.drawImage(radarImages[currentImageIdx - 1].img, 0, 0);
     }
     if (currentImageIdx > 1 && currentImageIdx <= drawImageIdx + 2) {
-      radarCtx.globalAlpha = 0.15 / opacityFactor;
+      radarCtx.globalAlpha = 0.10 / opacityFactor;
       radarCtx.drawImage(radarImages[currentImageIdx - 2].img, 0, 0);
     }
     if (currentImageIdx > 2 && currentImageIdx <= drawImageIdx + 3) {
-      radarCtx.globalAlpha = 0.1 / opacityFactor;
+      radarCtx.globalAlpha = 0.05 / opacityFactor;
       radarCtx.drawImage(radarImages[currentImageIdx - 3].img, 0, 0);
     }
 
@@ -284,126 +284,8 @@ function setActiveStation(feature) {
       currentImageIdx = 0;
       isLoading = false;
     }
-
-
-
-
-
-    /*    
-        let imgUrl = "https://script.google.com/macros/s/AKfycbwTvHxLoHcMRl0vxO7hzJI2ZFFn2xBKGdEUA-DKm5dKM7bqG3BVao7n1tnjrMRLPR7QQQ/exec?action=overlay&url=" + activeProps.overlayPath + overlay.name;
-        const response = await fetch(imgUrl, { method: 'GET' })
-        const imgJson = await response.json();
-        console.log(imgUrl);
-        let img = new Image();
-        img.crossOrigin = "anonymous";
-        img.src = imgJson.imageData;
-        img.onload = function () {
-          radarCanvas.width = img.naturalWidth;
-          radarCanvas.height = img.naturalHeight;
-        }
-        radarImages.push(img);
-  
-  
-          fetch(imgUrl, { method: 'GET' })
-        .then(response => response.json())
-        .then(imgJson => {
-          let img = new Image();
-          img.crossOrigin = "anonymous";
-          img.src = imgJson.imageData;
-          img.onload = function () {
-            radarCanvas.width = img.naturalWidth;
-            radarCanvas.height = img.naturalHeight;
-          }
-          radarImages.push(img);
-        })
-    
-    for (let overlay of activeProps.overlays) {
-          let img = new Image();
-          img.crossOrigin = "anonymous";
-          img.src = getImageData(activeProps.overlayPath + overlay.name);
-          console.log(img.src);
-          img.onload = function () {
-            radarCanvas.width = img.naturalWidth;
-            radarCanvas.height = img.naturalHeight;
-          }
-          radarImages.push(img);
-        }
-        
-            (async function () {
-      radarImages = [];
-      let activeProps = nearestStation.properties;
-      for await (let overlay of activeProps.overlays) {
-        let imgUrl = "https://script.google.com/macros/s/AKfycbwTvHxLoHcMRl0vxO7hzJI2ZFFn2xBKGdEUA-DKm5dKM7bqG3BVao7n1tnjrMRLPR7QQQ/exec?action=overlay&url=" + activeProps.overlayPath + overlay.name;
-        const response = await fetch(imgUrl, { method: 'GET' })
-        const imgJson = await response.json();
-        console.log(imgUrl);
-        let img = new Image();
-        img.crossOrigin = "anonymous";
-        img.src = imgJson.imageData;
-        img.onload = function () {
-          radarCanvas.width = img.naturalWidth;
-          radarCanvas.height = img.naturalHeight;
-        }
-        radarImages.push(img);
-      }
-      isLoading = false;
-    })();
-    
-        */
   }
-
-
 
   // If a station feature was provided to this function, lock to that station
-  //setActiveIDR();
   if (hasFeature) controls.lock.lockRadar();
 }
-
-
-/*function setActiveIDR() {
-  // If the radar is locked or the active station is empty (occurs at startup), exit
-  if (radarLocked || activeStationGeoJson.features.length == 0) return;
-
-  // Determine the most appropriate IDR for that map scale
-  var zoomLevel = map.getZoom();
-  var idxIdr = 0;
-  var idrs = activeStationGeoJson.features[0].properties.idrs;
-  switch (true) {
-    case (zoomLevel > 8):   // 64 km
-      idxIdr = (idrs.length < 4) ? idrs.length - 1 : 3;
-      break;
-    case (zoomLevel > 7):    // 128km
-      idxIdr = (idrs.length < 3) ? idrs.length - 1 : 2;
-      break;
-    case (zoomLevel > 6):    // 256 km
-      idxIdr = (idrs.length < 2) ? idrs.length - 1 : 1;
-      break;
-    case (zoomLevel > 5):    // 512 km
-      idxIdr = 0;
-      break;
-    default:    // All Australia
-      idxIdr = 0;
-  }
-  let newIdrName = idrs[idxIdr].name;
-
-  // If the new IDR is different than the current one, update the current IDR.
-  // Duplicate the start and end images for the radar loop, for visual effect.
-  if (activeIdr.name != newIdrName) {
-    fetch(idrUrl, { cache: "no-store" })
-      .then(response => response.json())
-      .then(idrJson => {
-        currentImageIdx = 0;
-        activeIdr = idrJson[newIdrName];
-        map.getSource('radarSource').setCoordinates(activeIdr.bounds);
-        activeIdr.imagePaths = [activeIdr.images[0]];
-        activeIdr.images.forEach(element => {
-          activeIdr.imagePaths.push(element);
-        });
-        activeIdr.imagePaths.push(activeIdr.images[activeIdr.images.length - 1]);
-        activeIdr.imagePaths.push(activeIdr.images[activeIdr.images.length - 1]);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
-}*/
