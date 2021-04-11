@@ -156,106 +156,64 @@ map.on("load", function () {
       'raster-resampling': 'linear'
     }
   };
-
-  /*
-  map.addSource('radarSource', {
-    type: 'image',
-    url: "data/blank-radar.png",
-    coordinates: [[151, -26], [153, -26], [153, -28], [151, -28]]
-  });
-
-  var radarLayer = {
-    id: 'radarLayer',
-    type: 'raster',
-    source: 'radarSource',
-    paint: {
-      'raster-fade-duration': 0,
-      'raster-opacity': 0.4,
-      'raster-resampling': 'linear'
-    }
-  };
-*/
-
   map.addLayer(radarLayer, firstSymbolId);
 
 
 
   // Move through radar images on a timer
   setInterval(function () {
-    // Exit if loading, no feature, or if the feature doesn't have overlays
+    if (activeStationGeoJson.features.length == 0 && stationGeoJson.features.length > 0) setActiveStation();
+
+    // Exit if loading, no feature, the feature doesn't have overlays, or the images aren't present yet in the overlays
     if (isLoading || !activeStationGeoJson ||
       activeStationGeoJson.features.length == 0 ||
-      activeStationGeoJson.features[0].properties.overlays.length == 0)
+      activeStationGeoJson.features[0].properties.overlays.length == 0 ||
+      radarImages.length == 0)
       return;
 
+    // Sort radar images by filename - won't be needed when accessing WillyWeather images directly
     radarImages.sort(function (a, b) {
-      if (a.file < b.file) {
-        return -1;
-      }
-      if (a.file > b.file) {
-        return 1;
-      }
-
-      // names must be equal
+      if (a.file < b.file) { return -1; }
+      if (a.file > b.file) { return 1; }
       return 0;
     });
 
-    // Draw radar images, with the last few images fading away
-    radarCtx.clearRect(0, 0, radarCanvas.width, radarCanvas.height);
-    if (currentImageIdx > 0) {
-      radarCtx.globalAlpha = 0.2;
-      radarCtx.drawImage(radarImages[currentImageIdx - 1].img, 0, 0);
-    }
-    if (currentImageIdx > 1) {
-      radarCtx.globalAlpha = 0.15;
-      radarCtx.drawImage(radarImages[currentImageIdx - 2].img, 0, 0);
-    }
-    if (currentImageIdx > 2) {
-      radarCtx.globalAlpha = 0.1;
-      radarCtx.drawImage(radarImages[currentImageIdx - 3].img, 0, 0);
-    }
-    radarCtx.globalAlpha = 1;
-    radarCtx.drawImage(radarImages[currentImageIdx].img, 0, 0);
-
-
     let props = activeStationGeoJson.features[0].properties;
     let overlays = props.overlays;
+
+    // Draw previous radar images with opacity, to appear as fading, trailing radar.
+    // Draw the last image several times, fading away.
+    let drawImageIdx = Math.min(currentImageIdx, overlays.length - 1);
+    let opacityFactor = currentImageIdx - drawImageIdx + 1;
+    radarCtx.clearRect(0, 0, radarCanvas.width, radarCanvas.height);
+    if (currentImageIdx > 0 && currentImageIdx <= drawImageIdx + 1) {
+      radarCtx.globalAlpha = 0.2 / opacityFactor;
+      radarCtx.drawImage(radarImages[currentImageIdx - 1].img, 0, 0);
+    }
+    if (currentImageIdx > 1 && currentImageIdx <= drawImageIdx + 2) {
+      radarCtx.globalAlpha = 0.15 / opacityFactor;
+      radarCtx.drawImage(radarImages[currentImageIdx - 2].img, 0, 0);
+    }
+    if (currentImageIdx > 2 && currentImageIdx <= drawImageIdx + 3) {
+      radarCtx.globalAlpha = 0.1 / opacityFactor;
+      radarCtx.drawImage(radarImages[currentImageIdx - 3].img, 0, 0);
+    }
+
+    // Draw current image
+    radarCtx.globalAlpha = 1 / opacityFactor;
+    radarCtx.drawImage(radarImages[drawImageIdx].img, 0, 0);
+
     if (!isPwsView) {
       document.getElementById("weatherStation").textContent = props.name;
-      let imageTime = new Date(overlays[currentImageIdx].dateTime).toLocaleString('en-AU');
+      let imageTime = new Date(overlays[drawImageIdx].dateTime + " UTC").toLocaleString('en-AU');
       document.getElementById("radarTime").textContent = imageTime.replace(":00 ", " ");
     }
-    currentImageIdx = (currentImageIdx == (overlays.length - 1)) ? 0 : currentImageIdx + 1;
+
+    currentImageIdx = (currentImageIdx == (overlays.length + 5)) ? 0 : currentImageIdx + 1;
 
   }, 500);
 
-  /*
-    setInterval(function () {
-      // Exit if no feature, or if the feature doesn't have overlays
-      if (!activeStationGeoJson ||
-        activeStationGeoJson.features.length == 0 ||
-        activeStationGeoJson.features[0].properties.overlays.length == 0)
-        return;
-  
-      let props = activeStationGeoJson.features[0].properties;
-      let overlays = props.overlays;
-  
-      let opacity = (currentImageIdx + 1) / (overlays + 1).length;
-      if (currentImageIdx == (overlays.length - 1)) opacity = 0;
-      map.getSource('radarSource').updateImage({ url: props.overlayPath + overlays[currentImageIdx].name });
-      map.setPaintProperty('radarLayer', 'raster-opacity', opacity);
-      map.setPaintProperty('radarLayer', 'raster-opacity', 1);
-  
-      if (!isPwsView) {
-        document.getElementById("weatherStation").textContent = props.name;
-        let imageTime = new Date(overlays[currentImageIdx].dateTime).toLocaleString('en-AU');
-        document.getElementById("radarTime").textContent = imageTime.replace(":00 ", " ");
-      }
-      currentImageIdx = (currentImageIdx == (overlays.length - 1)) ? 0 : currentImageIdx + 1;
-  
-    }, 800);
-  */
-
+ 
   // Hide the startup animation
   document.getElementById("kickstart").style.display = "none";
   setActiveStation();
@@ -276,7 +234,7 @@ map.on('dblclick', function (e) {
 
 function setActiveStation(feature) {
   if (radarLocked || !stationGeoJson) return;
-
+ 
   // If station feature was provided, use that. 
   // Use national radar if zoomed out beyond level 5.
   // Otherwise, use the station closest to the center of the screen.
@@ -300,14 +258,15 @@ function setActiveStation(feature) {
 
   // Update active station layer if the current station is different than the previous one.
   if (nearestStation && (activeStationGeoJson.features.length == 0 || activeStationGeoJson.features[0].properties.id != nearestStation.properties.id)) {
+    radarCtx.clearRect(0, 0, radarCanvas.width, radarCanvas.height);
     activeStationGeoJson = { 'type': 'FeatureCollection', 'features': [nearestStation] };
     map.getSource('activeStationSource').setData(activeStationGeoJson);
     map.getSource('radarSource').setCoordinates(nearestStation.properties.bounds);
 
     // Load radar images to array
     isLoading = true;
-    let activeProps = nearestStation.properties;
     radarImages = [];
+    let activeProps = nearestStation.properties;
     for (let overlay of activeProps.overlays) {
       let imgUrl = "https://script.google.com/macros/s/AKfycbwTvHxLoHcMRl0vxO7hzJI2ZFFn2xBKGdEUA-DKm5dKM7bqG3BVao7n1tnjrMRLPR7QQQ/exec?action=overlay&url=" + activeProps.overlayPath + overlay.name;
       fetch(imgUrl, { method: 'GET' })
@@ -322,6 +281,7 @@ function setActiveStation(feature) {
           }
           radarImages.push({ "file": overlay.name, "img": img });
         })
+      currentImageIdx = 0;
       isLoading = false;
     }
 
