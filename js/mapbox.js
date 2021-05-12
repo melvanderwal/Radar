@@ -268,7 +268,7 @@ function setActiveStation(feature) {
     radarImages = [];
     let activeProps = nearestStation.properties;
     for (let overlay of activeProps.overlays) {
-      let imgUrl = "https://script.google.com/macros/s/AKfycbwTvHxLoHcMRl0vxO7hzJI2ZFFn2xBKGdEUA-DKm5dKM7bqG3BVao7n1tnjrMRLPR7QQQ/exec?action=overlay&url=" + activeProps.overlayPath + overlay.name;
+      let imgUrl = "https://script.google.com/macros/s/AKfycbwm2L2FufJZH6BzJlpvxoDeSW6qRJ3OVW7o_bB8oTG9UHvC6GxBeZVMYfu8erMaRT6LnA/exec?action=overlay&url=" + activeProps.overlayPath + overlay.name;
       fetch(imgUrl, { method: 'GET' })
         .then(response => response.json())
         .then(imgJson => {
