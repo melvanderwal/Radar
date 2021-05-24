@@ -12,7 +12,7 @@ class WillyWeather {
 
         // Get stations and image urls from WillyWeather via Google Apps Script
         //let url = "./data/grafton/radar.json";
-        let url = "https://script.google.com/macros/s/AKfycbwm2L2FufJZH6BzJlpvxoDeSW6qRJ3OVW7o_bB8oTG9UHvC6GxBeZVMYfu8erMaRT6LnA/exec?action=overlays";
+        let url = "https://script.google.com/macros/s/" + gasMelStuffId + "/exec?action=overlays";
         //let url = "https://api.willyweather.com.au/v2/NTQwZjI1MzIwMTY1YzNiYTI5NjE4Ym/maps.json?mapTypes=radar,regional-radar&offset=-90&limit=30";
         fetch(url, { method: 'GET' })
             .then(response => response.json())
